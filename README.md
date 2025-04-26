@@ -5,14 +5,14 @@ An end-to-end automation framework built with **Playwright + TypeScript**, featu
 - ✅ Clean Page Object Model (POM)
 - ✅ Environment-based test config
 - ✅ CI/CD with GitHub Actions
-- ✅ HTML report hosted on GitHub Pages
 - ✅ Screenshots and video on test failure
 - ✅ Retry mechanism for flaky tests
 - ✅ Easy-to-run scripts for different browsers
 
 ---
 
-## 🔗 Repository  
+## 🔗 Repository
+
 **GitHub Repo:** [test-assesment](https://github.com/UzairBugHunter/test-assesment)
 
 ---
@@ -73,17 +73,16 @@ npm run test:all:headless
 npm run report:show
 ```
 
-Or access it live here after a push:  
-🔗 **[View Latest Report](https://uzairbughunter.github.io/test-assesment/)**
+The Playwright HTML report will open locally in your browser after test execution.
 
 ---
 
 ## 🚀 CI/CD with GitHub Actions
 
 Every push to `main`:
+
 - ✅ Automatically runs tests
-- ✅ Uploads HTML report + videos
-- ✅ Deploys the Playwright HTML report to GitHub Pages
+- ✅ Uploads HTML report and videos as downloadable artifacts
 
 **Workflow file:** `.github/workflows/playwright.yml`
 
@@ -107,9 +106,24 @@ playwright.config.ts    # Global config (timeouts, retries, reporters)
 - 🖥️ Runs tests in Chromium, Firefox, WebKit
 - 📸 Screenshots on failure
 - 🎥 Video recording on failure
-- 📊 HTML reporting (local & deployed)
+- 📊 Local HTML reporting after test execution
 - 💥 CI/CD pipeline included
-- 🌐 Easy-to-share test result link
+
+---
+
+## 📝 Important Note
+
+In case any test fails during execution,  
+please try running it locally a couple of times using the Chrome commands shared in the `package.json` file,  
+as the website under test (**automationexercise.com**) can sometimes behave flaky or slow.
+
+Example to retry locally:
+
+```bash
+npm run test:chrome:headed
+```
+
+✅ This usually resolves any temporary flakiness related to network delays or slow page loads.
 
 ---
 
@@ -118,3 +132,7 @@ playwright.config.ts    # Global config (timeouts, retries, reporters)
 Feel free to fork this repo or raise an issue if you'd like to collaborate or improve this test framework!
 
 ---
+
+## 📜 License
+
+MIT
