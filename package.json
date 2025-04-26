@@ -1,0 +1,24 @@
+{
+  "name": "test-assesment",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test:chrome:headed": "npx playwright test --project=chromium --headed",
+    "test:chrome:headless": "npx playwright test --project=chromium",
+    "test:firefox:headed": "npx playwright test --project=firefox --headed",
+    "test:firefox:headless": "npx playwright test --project=firefox",
+    "test:webkit:headed": "npx playwright test --project=webkit --headed",
+    "test:webkit:headless": "npx playwright test --project=webkit",
+    "test:all:headed": "npx playwright test --headed",
+    "test:all:headless": "npx playwright test",
+    "report:show": "npx playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.2"
+  }
+}
