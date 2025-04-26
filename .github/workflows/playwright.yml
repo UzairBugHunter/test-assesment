@@ -1,4 +1,4 @@
-name: Playwright Tests and Deploy Report
+name: Playwright Tests on Separate Browsers
 
 on:
   push:
@@ -18,7 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: lts/*
 
@@ -31,19 +32,10 @@ jobs:
       - name: Run Playwright tests on ${{ matrix.browser }}
         run: npx playwright test --project=${{ matrix.browser }}
 
-      - name: Upload Playwright HTML Report (artifact)
+      - name: Upload Playwright HTML Report (artifact) for ${{ matrix.browser }}
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report-${{ matrix.browser }}
           path: playwright-report/
           retention-days: 30
-
-      - name: Deploy Playwright HTML Report to GitHub Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: playwright-report
-          publish_branch: gh-pages
-          force_orphan: true
