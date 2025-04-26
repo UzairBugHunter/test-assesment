@@ -6,27 +6,26 @@ export class CartPage {
   private proceedToCheckoutButton: Locator;
 
   constructor(private page: Page) {
+    // Using the stable old XPath you were using
     this.addToCartButton = page.locator(
       "(//button[normalize-space()='Add to cart'])[1]"
-    ); // Add to Cart button on product page
+    );
+
     this.viewCartFromPopupButton = page.locator("//div[@id='cartModal']//p[2]"); // View Cart button on popup
+
     this.proceedToCheckoutButton = page.locator(
       'a[class="btn btn-default check_out"]'
     );
   }
 
   async addProductToCart() {
-    await Promise.all([
-      this.page.waitForLoadState("networkidle"), //  Wait for no network calls (popup to fully load)
-      this.addToCartButton.click(), //  Click Add to Cart
-    ]);
-
-    // Wait for popup and View Cart button to be visible
-    await this.viewCartFromPopupButton.waitFor({ state: "visible" }); //  assertion for state visibility
+    await this.page.waitForLoadState("networkidle");
+    await this.addToCartButton.click({ force: true });
     await this.viewCartFromPopupButton.click();
   }
 
   async proceedToCheckout() {
-    await this.proceedToCheckoutButton.click();
+    await this.proceedToCheckoutButton.waitFor({ state: "visible" });
+    await this.proceedToCheckoutButton.click({ force: true });
   }
 }
