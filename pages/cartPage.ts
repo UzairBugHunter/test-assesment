@@ -16,7 +16,6 @@ export class CartPage {
   }
 
   async addProductToCart() {
-    await this.addToCartButton.scrollIntoViewIfNeeded();
     await Promise.all([
       this.page.waitForLoadState("networkidle"), //  Wait for no network calls (popup to fully load)
       this.addToCartButton.click(), //  Click Add to Cart
