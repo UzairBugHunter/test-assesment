@@ -36,7 +36,6 @@ export class PaymentPage {
   }
 
   async payAndConfirmOrder() {
-    await this.payAndConfirmButton.scrollIntoViewIfNeeded();
     await this.payAndConfirmButton.click();
   }
 
