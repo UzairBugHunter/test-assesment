@@ -11,6 +11,8 @@
     "test:webkit:headless": "npx playwright test --project=webkit",
     "test:all:headed": "npx playwright test --headed",
     "test:all:headless": "npx playwright test",
+    "test:ui": "npx playwright test --grep @ui",
+    "test:db": "npx playwright test --grep @db --project=chromium",
     "report:show": "npx playwright show-report"
   },
   "keywords": [],
