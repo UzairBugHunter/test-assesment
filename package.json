@@ -11,6 +11,8 @@
     "test:webkit:headless": "npx playwright test --project=webkit",
     "test:all:headed": "npx playwright test --headed",
     "test:all:headless": "npx playwright test",
+    "test:ui": "npx playwright test --grep @ui",
+    "test:db": "npx playwright test --grep @db --project=chromium",
     "report:show": "npx playwright show-report"
   },
   "keywords": [],
@@ -19,6 +21,10 @@
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.52.0",
-    "@types/node": "^22.15.2"
+    "@types/node": "^22.15.2",
+    "@types/pg": "^8.11.14"
+  },
+  "dependencies": {
+    "pg": "^8.15.6"
   }
 }
