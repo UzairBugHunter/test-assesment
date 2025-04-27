@@ -14,3 +14,7 @@ export const cardTestData = {
   month: "12",
   year: "2026",
 };
+
+export const dbConfig = {
+  connectionString: "postgresql://postgres:mypasswordisuzair@localhost:5432/mydatabase",
+};
