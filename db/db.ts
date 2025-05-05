@@ -1,8 +1,15 @@
 import { Pool } from "pg";
-import { dbConfig } from "../data/testData"; // Adjust path if needed
+import { postgresConfig } from "../data/testData"; // Adjust if testData path changes
 
-const pool = new Pool({
-  connectionString: dbConfig.connectionString,
+// Initialize PostgreSQL pool using connection string
+const pool: Pool = new Pool({
+  connectionString: postgresConfig.connectionString,
+});
+
+// Optional: Handle unexpected connection errors
+pool.on("error", (err) => {
+  console.error("Unexpected error on idle PostgreSQL client", err);
+  process.exit(-1);
 });
 
 export default pool;

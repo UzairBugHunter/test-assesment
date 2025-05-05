@@ -12,47 +12,48 @@ test.describe("Database CRUD Operations", () => {
   let updatedTestEmail: string;
 
   test.beforeEach(async () => {
-    // Generate random name and email before every test
+    // 🔁 Generate unique user data per test run
     const randomSuffix = Math.floor(Math.random() * 100000);
     testName = `Uzair_${randomSuffix}`;
     testEmail = `uzair_${randomSuffix}@example.com`;
     updatedTestEmail = `uzair_updated_${randomSuffix}@example.com`;
 
+    // 🧹 Pre-test cleanup to avoid duplicates
     try {
-      // Clean up if somehow data already exists
       await deleteUserByEmail(testEmail);
       await deleteUserByEmail(updatedTestEmail);
     } catch (error) {
-      console.log("No user found to delete, moving forward.");
+      console.info("ℹ️ No existing user to delete, continuing test...");
     }
   });
 
   test.describe("@db", () => {
-    test("Basic CRUD Flow", async ({ browserName }) => {
+    test("Basic CRUD Flow", async ({ browserName }): Promise<void> => {
+      // ✅ Run only on Chromium for stability
       test.skip(
         browserName !== "chromium",
         "This DB test only runs on Chromium."
       );
 
-      // CREATE
+      // 🟢 CREATE
       const createdUser = await createUser(testName, testEmail);
-      console.log("Created User:", createdUser);
+      console.info("✅ Created User:", createdUser);
       expect(createdUser.name).toBe(testName);
       expect(createdUser.email).toBe(testEmail);
 
-      // READ
+      // 🔵 READ
       const fetchedUser = await getUserByEmail(testEmail);
-      console.log("Fetched User:", fetchedUser);
-      expect(fetchedUser.email).toBe(testEmail);
+      console.info("📥 Fetched User:", fetchedUser);
+      expect(fetchedUser?.email).toBe(testEmail);
 
-      // UPDATE
+      // 🟠 UPDATE
       const updatedUser = await updateUserEmail(testEmail, updatedTestEmail);
-      console.log("Updated User:", updatedUser);
+      console.info("🔁 Updated User:", updatedUser);
       expect(updatedUser.email).toBe(updatedTestEmail);
 
-      // DELETE
+      // 🔴 DELETE
       const deletedUser = await deleteUserByEmail(updatedTestEmail);
-      console.log("Deleted User:", deletedUser);
+      console.info("🗑️ Deleted User:", deletedUser);
       expect(deletedUser.email).toBe(updatedTestEmail);
     });
   });

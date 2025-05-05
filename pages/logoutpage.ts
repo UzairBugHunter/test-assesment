@@ -5,18 +5,22 @@ export class LogoutPage {
   private loginPageHeading: Locator;
 
   constructor(private page: Page) {
+    // Logout link in the navigation
     this.logoutButton = page.locator("a", { hasText: "Logout" });
+
+    // Heading on the login page after logout
     this.loginPageHeading = page.locator("h2", {
       hasText: "Login to your account",
-    }); // After logout, login heading visible
+    });
   }
 
-  async logout() {
+  async logout(): Promise<void> {
+    await this.logoutButton.waitFor({ state: "visible" });
     await this.logoutButton.scrollIntoViewIfNeeded();
     await this.logoutButton.click();
   }
 
-  async assertLoggedOut() {
-    await expect(this.loginPageHeading).toBeVisible(); // Asserting we are back on login page
+  async assertLoggedOut(): Promise<void> {
+    await expect(this.loginPageHeading).toBeVisible();
   }
 }
