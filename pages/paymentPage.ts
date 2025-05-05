@@ -10,12 +10,17 @@ export class PaymentPage {
   private orderSuccessMessage: Locator;
 
   constructor(private page: Page) {
+    // Payment input fields
     this.nameOnCardInput = page.locator('input[name="name_on_card"]');
     this.cardNumberInput = page.locator('input[name="card_number"]');
     this.cvcInput = page.locator('input[name="cvc"]');
     this.expiryMonthInput = page.locator('input[name="expiry_month"]');
     this.expiryYearInput = page.locator('input[name="expiry_year"]');
-    this.payAndConfirmButton = page.locator("button#submit"); // Pay and Confirm button
+
+    // Button to confirm payment
+    this.payAndConfirmButton = page.locator("button#submit");
+
+    // Success message after placing the order
     this.orderSuccessMessage = page.locator(
       'p:has-text("Congratulations! Your order has been confirmed!")'
     );
@@ -27,19 +32,22 @@ export class PaymentPage {
     cvc: string,
     month: string,
     year: string
-  ) {
+  ): Promise<void> {
+    await this.nameOnCardInput.waitFor({ state: "visible" });
     await this.nameOnCardInput.fill(cardName);
+
     await this.cardNumberInput.fill(cardNumber);
     await this.cvcInput.fill(cvc);
     await this.expiryMonthInput.fill(month);
     await this.expiryYearInput.fill(year);
   }
 
-  async payAndConfirmOrder() {
+  async payAndConfirmOrder(): Promise<void> {
+    await this.payAndConfirmButton.waitFor({ state: "visible" });
     await this.payAndConfirmButton.click();
   }
 
-  async assertOrderPlacedSuccessfully() {
+  async assertOrderPlacedSuccessfully(): Promise<void> {
     await expect(this.orderSuccessMessage).toBeVisible();
   }
 }
